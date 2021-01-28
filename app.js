@@ -9,11 +9,14 @@ var path = require('path');
 var handlebars = require('express3-handlebars')
 
 var index = require('./routes/index');
+var project = require("./routes/project");
 var hello = require('./routes/hello');
 // Example route
 // var user = require('./routes/user');
 
 var app = express();
+var hello = require("./routes/hello");
+app.get("/hello/:userName", hello.view);
 
 // all environments
 app.set('port', process.env.PORT || 3000);
@@ -38,9 +41,12 @@ if ('development' == app.get('env')) {
 // Add routes here
 app.get('/', index.view);
 app.get('/hello/:userName', hello.view);
+app.get("/project", project.viewProject);
+
 // Example route
 // app.get('/users', user.list);
 
 http.createServer(app).listen(app.get('port'), function(){
   console.log('Express server listening on port ' + app.get('port'));
 });
+app.get("/project/:name", project.viewProject);
